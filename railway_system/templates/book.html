@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Book Ticket</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+<a href="/search">Back</a>
+<a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+<div class="card">
+
+<h2>Passenger Details</h2>
+
+<form method="post">
+
+<input type="date" name="date" required>
+
+<input type="number" name="count" placeholder="Number of Passengers" min="1" max="5" required>
+
+<div id="names"></div>
+
+<button>Proceed to Payment</button>
+
+</form>
+
+</div>
+</div>
+
+<script>
+document.querySelector("input[name='count']").onchange=function(){
+    let c=this.value;
+    let div=document.getElementById("names");
+    div.innerHTML="";
+    for(let i=0;i<c;i++){
+        div.innerHTML+=`<input name="name${i}" placeholder="Passenger ${i+1} Name" required>`;
+    }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Available Trains</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+<a href="/search">New Search</a>
+<a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+<div class="card">
+
+<h2>Available Trains</h2>
+
+<table>
+<tr>
+<th>No</th><th>Name</th><th>From</th><th>To</th>
+<th>Seats</th><th>Cost</th><th>Action</th>
+</tr>
+
+{% for t in trains %}
+<tr>
+<td>{{t.train_no}}</td>
+<td>{{t.train_name}}</td>
+<td>{{t.from_loc}}</td>
+<td>{{t.to_loc}}</td>
+<td>{{t.seats}}</td>
+<td>{{t.cost}}</td>
+<td>
+<a href="/book/{{t.train_no}}">
+<button>Book</button>
+</a>
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+</div>
+
+</body>
+</html>

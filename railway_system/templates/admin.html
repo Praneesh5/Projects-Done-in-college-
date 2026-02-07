@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+<a href="/admin">Dashboard</a>
+<a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+
+<div class="card">
+<h2>Add / Update Train</h2>
+
+<form method="post">
+<input name="train_no" placeholder="Train Number" required>
+<input name="train_name" placeholder="Train Name" required>
+<input name="from_loc" placeholder="From Station" required>
+<input name="to_loc" placeholder="To Station" required>
+<input name="seats" placeholder="Seats" required>
+<input name="cost" placeholder="Ticket Cost" required>
+<input name="start" placeholder="Start Time (HH:MM)" required>
+<input name="end" placeholder="End Time (HH:MM)" required>
+<button>Add / Update Train</button>
+</form>
+</div>
+
+<div class="card">
+<h2>All Trains</h2>
+<table>
+<tr>
+<th>No</th><th>Name</th><th>From</th><th>To</th><th>Seats</th><th>Cost</th>
+</tr>
+
+{% for t in trains %}
+<tr>
+<td>{{t.train_no}}</td>
+<td>{{t.train_name}}</td>
+<td>{{t.from_loc}}</td>
+<td>{{t.to_loc}}</td>
+<td>{{t.seats}}</td>
+<td>{{t.cost}}</td>
+</tr>
+{% endfor %}
+
+</table>
+</div>
+
+</div>
+
+</body>
+</html>

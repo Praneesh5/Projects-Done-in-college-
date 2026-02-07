@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User Profile</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<nav>
+<a href="/trains">Trains</a>
+<a href="/logout">Logout</a>
+</nav>
+
+<div class="container">
+
+<div class="card">
+<h2>Your Tickets</h2>
+<table>
+<tr>
+<th>Ticket ID</th><th>Train</th><th>Name</th><th>From</th><th>To</th><th>Date</th>
+</tr>
+
+{% for t in tickets %}
+<tr>
+<td>{{t.ticket_id}}</td>
+<td>{{t.train_no}}</td>
+<td>{{t.passenger_name}}</td>
+<td>{{t.from_loc}}</td>
+<td>{{t.to_loc}}</td>
+<td>{{t.travel_date}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="card">
+<h2>Payments</h2>
+<table>
+<tr>
+<th>Payment ID</th><th>Ticket</th><th>Amount</th><th>Method</th><th>Status</th>
+</tr>
+
+{% for p in payments %}
+<tr>
+<td>{{p.payment_id}}</td>
+<td>{{p.ticket_id}}</td>
+<td>{{p.amount}}</td>
+<td>{{p.method}}</td>
+<td>{{p.status}}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</div>
+
+</body>
+</html>
