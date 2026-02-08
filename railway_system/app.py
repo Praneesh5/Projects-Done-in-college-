@@ -14,8 +14,12 @@ def get_db():
     )
 
 # ---------- LOGIN ----------
-@app.route("/",methods=["GET","POST"])
-def login():
+@app.route("/")
+def role():
+    return render_template("role.html")
+@app.route("/login/<role>",methods=["GET","POST"])
+def login(role):
+
     if request.method=="POST":
         u=request.form["username"]
         p=request.form["password"]
@@ -30,12 +34,14 @@ def login():
             session["uid"]=user["id"]
             session["admin"]=user["is_admin"]
 
-            if user["is_admin"]:
+            if role=="admin" and user["is_admin"]:
                 return redirect("/admin")
-            else:
+
+            if role=="user" and not user["is_admin"]:
                 return redirect("/search")
 
-    return render_template("login.html")
+    return render_template("login.html",role=role)
+
 
 # ---------- ADMIN ----------
 @app.route("/admin",methods=["GET","POST"])
@@ -104,12 +110,16 @@ def book(train_no):
         train=cur.fetchone()
 
         for i in range(count):
-            name=request.form[f"name{i}"]
+            name = request.form[f"name{i}"]
+            age = request.form[f"age{i}"]
+            berth = request.form[f"berth{i}"]
 
             cur.execute("""
-            INSERT INTO tickets(user_id,train_no,passenger_name,from_loc,to_loc,travel_date)
-            VALUES(%s,%s,%s,%s,%s,%s)
-            """,(session["uid"],train_no,name,train["from_loc"],train["to_loc"],date))
+            INSERT INTO tickets
+            (user_id,train_no,passenger_name,age,berth_preference,from_loc,to_loc,travel_date)
+            VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+            """, (session["uid"], train_no, name, age, berth,
+                  train["from_loc"], train["to_loc"], date))
 
         cur.execute("UPDATE trains SET seats=seats-%s WHERE train_no=%s",(count,train_no))
         db.commit()
@@ -131,9 +141,9 @@ def pay():
         method=request.form["method"]
 
         cur.execute("""
-        INSERT INTO payments(ticket_id,amount,method,status)
-        VALUES(%s,500,%s,'SUCCESS')
-        """,(tid,method))
+        INSERT INTO payments(ticket_id,user_id,amount,method,status)
+        VALUES(%s,%s,500,%s,'SUCCESS')
+        """, (tid, session["uid"], method))
         db.commit()
 
         return redirect("/profile")

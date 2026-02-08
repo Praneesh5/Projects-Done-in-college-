@@ -2,19 +2,32 @@
 <html>
 <head>
 <title>Available Trains</title>
+
 <link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
+<div class="top-header">
+    <i class="fa-solid fa-train"></i> RailEase
+</div>
 
 <nav>
+<div class="logo">🚆 RailEase</div>
+<div>
 <a href="/search">New Search</a>
 <a href="/logout">Logout</a>
+</div>
 </nav>
 
 <div class="container">
 <div class="card">
 
-<h2>Available Trains</h2>
+<h2 class="page-title">Available Trains</h2>
+
+<div class="section">
+<h3>Select Train to Book</h3>
 
 <table>
 <tr>
@@ -32,13 +45,15 @@
 <td>{{t.cost}}</td>
 <td>
 <a href="/book/{{t.train_no}}">
-<button>Book</button>
+<button class="action-btn">Book</button>
 </a>
 </td>
 </tr>
 {% endfor %}
 
 </table>
+
+</div>
 
 </div>
 </div>

@@ -2,38 +2,79 @@
 <html>
 <head>
 <title>Admin Dashboard</title>
+
 <link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
+
+<div class="top-header">
+    <i class="fa-solid fa-train"></i> RailEase
+</div>
+
 <nav>
-<a href="/admin">Dashboard</a>
+<div class="logo">🚆 RailEase Admin</div>
+<div>
 <a href="/logout">Logout</a>
+</div>
 </nav>
 
 <div class="container">
-
 <div class="card">
-<h2>Add / Update Train</h2>
+
+<h2 class="page-title">Admin Dashboard</h2>
+
+<div class="grid">
+
+<div class="info-card">
+<i class="fa-solid fa-train"></i>
+<h3>Total Trains</h3>
+<p>{{ trains|length }}</p>
+</div>
+
+<div class="info-card">
+<i class="fa-solid fa-server"></i>
+<h3>System Status</h3>
+<p>Running</p>
+</div>
+
+<div class="info-card">
+<i class="fa-solid fa-ticket"></i>
+<h3>Bookings</h3>
+<p>Live</p>
+</div>
+
+</div>
+
+<div class="section">
+<h3>Add / Update Train</h3>
 
 <form method="post">
+
 <input name="train_no" placeholder="Train Number" required>
 <input name="train_name" placeholder="Train Name" required>
-<input name="from_loc" placeholder="From Station" required>
-<input name="to_loc" placeholder="To Station" required>
+<input name="from_loc" placeholder="From Location" required>
+<input name="to_loc" placeholder="To Location" required>
 <input name="seats" placeholder="Seats" required>
-<input name="cost" placeholder="Ticket Cost" required>
-<input name="start" placeholder="Start Time (HH:MM)" required>
-<input name="end" placeholder="End Time (HH:MM)" required>
-<button>Add / Update Train</button>
+<input name="cost" placeholder="Cost" required>
+<input type="time" name="start" required>
+<input type="time" name="end" required>
+
+<button>Save Train</button>
+
 </form>
 </div>
 
-<div class="card">
-<h2>All Trains</h2>
+<div class="section">
+<h3>Train List</h3>
+
 <table>
 <tr>
-<th>No</th><th>Name</th><th>From</th><th>To</th><th>Seats</th><th>Cost</th>
+<th>No</th><th>Name</th><th>From</th><th>To</th>
+<th>Seats</th><th>Cost</th>
 </tr>
 
 {% for t in trains %}
@@ -50,6 +91,7 @@
 </table>
 </div>
 
+</div>
 </div>
 
 </body>

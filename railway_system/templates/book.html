@@ -4,7 +4,11 @@
 <title>Book Ticket</title>
 <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
+<div class="top-header">
+    <i class="fa-solid fa-train"></i> RailEase
+</div>
 
 <nav>
 <a href="/search">Back</a>
@@ -12,24 +16,30 @@
 </nav>
 
 <div class="container">
+
 <div class="card">
 
 <h2>Passenger Details</h2>
 
 <form method="post">
 
+<label>Travel Date</label>
 <input type="date" name="date" required>
 
-<input type="number" name="count" placeholder="Number of Passengers" min="1" max="5" required>
+<label>Number of Passengers</label>
+<input type="number" name="count" min="1" max="5" required>
 
 <div id="names"></div>
 
-<button>Proceed to Payment</button>
+<button type="submit">Proceed to Payment</button>
 
 </form>
 
 </div>
+
 </div>
+
+<!-- ===== Dynamic Passenger Inputs ===== -->
 
 <script>
 document.querySelector("input[name='count']").onchange=function(){
@@ -37,7 +47,15 @@ document.querySelector("input[name='count']").onchange=function(){
     let div=document.getElementById("names");
     div.innerHTML="";
     for(let i=0;i<c;i++){
-        div.innerHTML+=`<input name="name${i}" placeholder="Passenger ${i+1} Name" required>`;
+        div.innerHTML+=`
+        <input name="name${i}" placeholder="Passenger ${i+1} Name" required>
+        <input name="age${i}" placeholder="Age" required>
+        <select name="berth${i}">
+            <option value="Lower">Lower</option>
+            <option value="Middle">Middle</option>
+            <option value="Upper">Upper</option>
+        </select>
+        `;
     }
 }
 </script>

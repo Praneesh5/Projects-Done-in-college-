@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Search Trains</title>
+<title>User Dashboard</title>
+
 <link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
+<div class="top-header">
+    <i class="fa-solid fa-train"></i> RailEase
+</div>
 
 <nav>
+<div class="logo">🚆 RailEase</div>
+<div>
 <a href="/profile">Profile</a>
 <a href="/logout">Logout</a>
+</div>
 </nav>
 
 <div class="container">
 <div class="card">
 
-<h2>Find Trains</h2>
+<h2 class="page-title">User Dashboard</h2>
+
+<div class="grid">
+
+<div class="info-card">
+<i class="fa-solid fa-bolt"></i>
+<h3>Fast Booking</h3>
+<p>Instant</p>
+</div>
+
+<div class="info-card">
+<i class="fa-solid fa-lock"></i>
+<h3>Secure Payment</h3>
+<p>100%</p>
+</div>
+
+<div class="info-card">
+<i class="fa-solid fa-train-subway"></i>
+<h3>Live Trains</h3>
+<p>Available</p>
+</div>
+
+</div>
+
+<div class="section">
+<h3>Search Trains</h3>
 
 <form method="post">
+
 <input name="from_loc" placeholder="From Station" required>
 <input name="to_loc" placeholder="To Station" required>
 <input type="date" name="date" required>
+
 <button>Search</button>
+
 </form>
+</div>
 
 </div>
 </div>
