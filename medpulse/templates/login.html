@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MedPulse Pro – Secure Doctor Login">
+    <title>MedPulse Pro – Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="login-body">
+
+    <!-- ───── Login Card ───── -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-icon">🫀</div>
+            <h1>MedPulse Pro</h1>
+            <p class="subtitle">Remote Cardiac Monitoring System</p>
+
+            {% if error %}
+            <div class="login-error">⚠ {{ error }}</div>
+            {% endif %}
+
+            <form method="POST" id="loginForm">
+                <div class="input-group">
+                    <label for="username">Doctor Username</label>
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required
+                        autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required
+                        autocomplete="current-password">
+                </div>
+                <button type="submit" id="loginBtn">Sign In Securely</button>
+            </form>
+
+            <div class="login-footer">
+                🔐 Protected Healthcare System &bull; AES-256 Encrypted
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ─── Login Button Micro-interaction ─── */
+        document.getElementById('loginBtn').addEventListener('click', function () {
+            this.style.transform = 'scale(0.97)';
+            setTimeout(() => this.style.transform = '', 150);
+        });
+    </script>
+
+</body>
+
+</html>

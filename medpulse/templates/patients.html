@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients – MedPulse Pro</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/dashboard" class="sidebar-logo">
+                <div class="sidebar-logo-icon">🫀</div>
+                <div class="sidebar-logo-text">
+                    <h2>MedPulse Pro</h2>
+                    <span>cardiac monitor</span>
+                </div>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="sidebar-section-label">Main</div>
+            <a href="/dashboard"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="/patients" class="active"><span class="nav-icon">💓</span> Patients</a>
+            <a href="/patients/add"><span class="nav-icon">➕</span> Add Patient</a>
+            <div class="sidebar-section-label">System</div>
+            <a href="/logout" class="danger"><span class="nav-icon">🚪</span> Logout</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-status"><span class="status-dot"></span> System Online</div>
+        </div>
+    </aside>
+
+    <header class="top-header">
+        <div class="header-left">
+            <button class="mobile-menu-btn"
+                onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+            <div class="header-breadcrumb">
+                <span style="color:var(--text-bright);font-weight:700;">MedPulse Pro</span>
+                <span class="sep">/</span>
+                <span>Patients</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-profile">
+                <div class="header-profile-avatar">DR</div>
+                <div class="header-profile-info">
+                    <div class="name">Dr. Praneesh</div>
+                    <div class="role">Cardiologist</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="page-title-area flex-between">
+            <div>
+                <h1>Patients</h1>
+                <p>All registered patients for cardiac monitoring</p>
+            </div>
+            <a href="/patients/add" class="btn-primary" style="text-decoration:none;">➕ Add Patient</a>
+        </div>
+
+        <div class="card" style="padding:0;overflow:hidden;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Patient</th>
+                        <th>Age</th>
+                        <th>Location</th>
+                        <th>Latest BPM</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="patientTableBody">
+                    {% for p in patients %}
+                    <tr data-pid="{{ p.id }}">
+                        <td style="color:var(--text-dim);font-family:'JetBrains Mono',monospace;font-size:10px;">{{
+                            loop.index }}</td>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <div style="width:30px;height:30px;border-radius:50%;
+                                    background:linear-gradient(135deg,var(--accent),#7c4dff);
+                                    display:flex;align-items:center;justify-content:center;
+                                    font-size:11px;font-weight:800;color:#000;flex-shrink:0;">
+                                    {{ p.name[0] | upper }}
+                                </div>
+                                <span style="font-weight:600;font-size:12px;">{{ p.name }}</span>
+                            </div>
+                        </td>
+                        <td style="font-family:'JetBrains Mono',monospace;font-size:11px;">{{ p.age }}</td>
+                        <td style="font-size:11px;color:var(--text-mid);">{{ p.location }}</td>
+                        <td>
+                            <span class="bpm-cell" id="bpm-{{ p.id }}"
+                                style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:12px;color:var(--text-dim);">
+                                --
+                            </span>
+                        </td>
+                        <td>
+                            <a href="/patient/{{ p.id }}" class="table-action-btn">📂 Monitor</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not patients %}
+                    <tr>
+                        <td colspan="6" style="text-align:center;padding:40px;color:var(--text-dim);font-size:11px;">
+                            No patients registered. Click "Add Patient" to begin.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <script>
+        /* ═══ Fetch live BPM for each patient ═══ */
+        function fetchAllBPM() {
+            const rows = document.querySelectorAll('[data-pid]');
+            rows.forEach(row => {
+                const pid = row.dataset.pid;
+                fetch(`/api/v1/live/${pid}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        const cell = document.getElementById(`bpm-${pid}`);
+                        if (data.length > 0) {
+                            const bpm = data[0].bpm;
+                            const crit = data[0].status === 'CRITICAL';
+                            cell.textContent = bpm + ' BPM';
+                            cell.style.color = crit ? 'var(--red)' : 'var(--accent)';
+                        } else {
+                            cell.textContent = 'No data';
+                            cell.style.color = 'var(--text-dim)';
+                        }
+                    })
+                    .catch(() => {
+                        const cell = document.getElementById(`bpm-${pid}`);
+                        cell.textContent = 'Offline';
+                        cell.style.color = 'var(--red)';
+                    });
+            });
+        }
+        setInterval(fetchAllBPM, 3000);
+        fetchAllBPM();
+    </script>
+
+</body>
+
+</html>

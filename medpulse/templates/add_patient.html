@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Patient – MedPulse Pro</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/dashboard" class="sidebar-logo">
+                <div class="sidebar-logo-icon">🫀</div>
+                <div class="sidebar-logo-text">
+                    <h2>MedPulse Pro</h2>
+                    <span>cardiac monitor</span>
+                </div>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="sidebar-section-label">Main</div>
+            <a href="/dashboard"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="/patients"><span class="nav-icon">💓</span> Patients</a>
+            <a href="/patients/add" class="active"><span class="nav-icon">➕</span> Add Patient</a>
+            <div class="sidebar-section-label">System</div>
+            <a href="/logout" class="danger"><span class="nav-icon">🚪</span> Logout</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-status"><span class="status-dot"></span> System Online</div>
+        </div>
+    </aside>
+
+    <header class="top-header">
+        <div class="header-left">
+            <button class="mobile-menu-btn"
+                onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+            <div class="header-breadcrumb">
+                <span style="color:var(--text-bright);font-weight:700;">MedPulse Pro</span>
+                <span class="sep">/</span>
+                <span>Add Patient</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-profile">
+                <div class="header-profile-avatar">DR</div>
+                <div class="header-profile-info">
+                    <div class="name">Dr. Praneesh</div>
+                    <div class="role">Cardiologist</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="page-title-area">
+            <h1>Register Patient</h1>
+            <p>Add a new patient for remote cardiac monitoring</p>
+        </div>
+
+        <div class="card form-card">
+            <div class="card-header">
+                <h3><span class="card-icon">🧑‍⚕️</span> Patient Details</h3>
+            </div>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" placeholder="e.g. 62" required min="1" max="150">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="e.g. Chennai, Tamil Nadu" required>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:4px;">
+                    <button type="submit" class="btn-primary">✅ Register Patient</button>
+                    <a href="/patients" class="btn-secondary" style="text-decoration:none;">← Cancel</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="card" style="max-width:600px;margin-top:14px;">
+            <div class="card-header">
+                <h3><span class="card-icon">📡</span> ESP32 Setup</h3>
+            </div>
+            <div style="font-size:11px;color:var(--text-mid);line-height:2;">
+                <p>1. After registration, a unique <strong style="color:var(--accent);">API token</strong> is generated.
+                </p>
+                <p>2. Flash the token into your <strong style="color:var(--accent);">ESP32 device</strong>.</p>
+                <p>3. ESP32 sends BPM & ECG data to <code
+                        style="background:rgba(0,212,255,0.08);padding:2px 6px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);">POST /api/v1/bpm</code>
+                </p>
+                <p>4. Data appears <strong style="color:var(--green);">live</strong> on the dashboard.</p>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

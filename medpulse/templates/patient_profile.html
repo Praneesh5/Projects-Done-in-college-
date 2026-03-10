@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ patient.name }} – MedPulse Pro</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/dashboard" class="sidebar-logo">
+                <div class="sidebar-logo-icon">🫀</div>
+                <div class="sidebar-logo-text">
+                    <h2>MedPulse Pro</h2>
+                    <span>cardiac monitor</span>
+                </div>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="sidebar-section-label">Main</div>
+            <a href="/dashboard"><span class="nav-icon">📊</span> Dashboard</a>
+            <a href="/patients" class="active"><span class="nav-icon">💓</span> Patients</a>
+            <a href="/patients/add"><span class="nav-icon">➕</span> Add Patient</a>
+            <div class="sidebar-section-label">System</div>
+            <a href="/logout" class="danger"><span class="nav-icon">🚪</span> Logout</a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-status"><span class="status-dot"></span> System Online</div>
+        </div>
+    </aside>
+
+    <header class="top-header">
+        <div class="header-left">
+            <button class="mobile-menu-btn"
+                onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+            <div class="header-breadcrumb">
+                <span style="color:var(--text-bright);font-weight:700;">MedPulse Pro</span>
+                <span class="sep">/</span>
+                <span>{{ patient.name }}</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="connection-status" id="connBadge">
+                <span class="conn-dot"></span>
+                <span id="connText">Connecting...</span>
+            </div>
+            <div class="header-profile">
+                <div class="header-profile-avatar">DR</div>
+                <div class="header-profile-info">
+                    <div class="name">Dr. Praneesh</div>
+                    <div class="role">Cardiologist</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <div class="alert-banner" id="alertBanner">
+            <span class="alert-icon">🚨</span>
+            <div class="alert-text">
+                <h4>Critical Heart Rate</h4>
+                <p id="alertMsg">BPM exceeded safe range.</p>
+            </div>
+            <button class="alert-dismiss" onclick="this.parentElement.classList.remove('visible')">Dismiss</button>
+        </div>
+
+        <div class="page-title-area flex-between">
+            <div>
+                <h1>{{ patient.name }}</h1>
+                <p>Live ECG & heart rate monitoring</p>
+            </div>
+            <a href="/patients" class="btn-secondary" style="text-decoration:none;">← Back to Patients</a>
+        </div>
+
+        <!-- ECG Monitor -->
+        <div class="card monitoring-hero" style="animation-delay:0.05s;">
+            <div class="card-header">
+                <h3><span class="card-icon">📈</span> ECG Waveform</h3>
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <span class="ecg-overlay-tag">LEAD II</span>
+                    <span class="ecg-overlay-tag">25mm/s</span>
+                    <span class="ecg-overlay-tag" id="ecgStatus"
+                        style="background:var(--green-soft);color:var(--green);">● LIVE</span>
+                </div>
+            </div>
+            <div class="ecg-canvas-container" style="height:220px;">
+                <canvas id="ecgCanvas" height="220"></canvas>
+            </div>
+        </div>
+
+        <!-- BPM + Feed -->
+        <div class="dashboard-row">
+            <div class="card big-bpm-display" style="animation-delay:0.1s;">
+                <div class="card-header" style="position:absolute;top:16px;left:20px;right:20px;">
+                    <h3><span class="card-icon">❤️</span> Heart Rate</h3>
+                </div>
+                <div class="big-bpm-number" id="liveBpm">--</div>
+                <div class="big-bpm-label">Beats Per Minute</div>
+            </div>
+
+            <div class="card" style="padding:0;animation-delay:0.15s;">
+                <div class="card-header" style="padding:16px 20px 6px;">
+                    <h3><span class="card-icon">📡</span> ESP32 Data Stream</h3>
+                </div>
+                <div class="live-feed" id="liveFeed" style="padding:0 20px 14px;">
+                    <div class="feed-item" style="color:var(--text-dim);justify-content:center;font-size:10px;">
+                        Waiting for ESP32...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patient Details + Notes -->
+        <div class="dashboard-row">
+            <div class="card patient-info-card" style="animation-delay:0.2s;">
+                <div class="card-header">
+                    <h3><span class="card-icon">🧑‍⚕️</span> Patient Information</h3>
+                </div>
+                <div class="patient-avatar-row">
+                    <div class="patient-avatar">{{ patient.name[0] | upper }}</div>
+                    <div class="patient-name-block">
+                        <h3>{{ patient.name }}</h3>
+                        <span class="patient-id">PID-{{ patient.id }} &bull; Remote Monitoring</span>
+                    </div>
+                </div>
+                <div class="patient-details-grid">
+                    <div class="patient-detail-item">
+                        <div class="detail-label">Age</div>
+                        <div class="detail-value">{{ patient.age }} yrs</div>
+                    </div>
+                    <div class="patient-detail-item">
+                        <div class="detail-label">Location</div>
+                        <div class="detail-value">{{ patient.location }}</div>
+                    </div>
+                    <div class="patient-detail-item" style="grid-column:span 2;">
+                        <div class="detail-label">ESP32 API Token</div>
+                        <div class="detail-value"
+                            style="font-size:10px;word-break:break-all;color:var(--text-dim);font-family:'JetBrains Mono',monospace;">
+                            {{ patient.api_token }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card form-card" style="max-width:100%;animation-delay:0.25s;">
+                <div class="card-header">
+                    <h3><span class="card-icon">📝</span> Medical Notes</h3>
+                </div>
+                <form method="POST" action="/patient/{{ patient.id }}/update">
+                    <div class="form-group">
+                        <label for="notes">Doctor's Observations</label>
+                        <textarea id="notes" name="notes" rows="4"
+                            placeholder="Enter clinical observations, ECG findings...">{{ patient.medical_notes }}</textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">💾 Save Notes</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const PID = {{ patient.id }};
+
+        /* ═══ ECG Waveform ═══ */
+        (function () {
+            const canvas = document.getElementById('ecgCanvas');
+            const ctx = canvas.getContext('2d');
+            let data = [], phase = 0;
+            const MAX = 600;
+
+            function resize() {
+                const r = canvas.parentElement.getBoundingClientRect();
+                canvas.width = r.width; canvas.height = r.height || 220;
+                if (!data.length) for (let i = 0; i < MAX; i++) data.push(canvas.height / 2);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            function ecg() {
+                phase += 0.03;
+                const c = phase % (Math.PI * 2), m = canvas.height / 2;
+                if (c > 1 && c < 1.5) return m - 14 * Math.sin((c - 1) * Math.PI / 0.5);
+                if (c > 1.7 && c < 1.9) return m + 12 * Math.sin((c - 1.7) * Math.PI / 0.2);
+                if (c > 1.9 && c < 2.2) return m - 80 * Math.sin((c - 1.9) * Math.PI / 0.3);
+                if (c > 2.2 && c < 2.4) return m + 25 * Math.sin((c - 2.2) * Math.PI / 0.2);
+                if (c > 3 && c < 3.6) return m - 18 * Math.sin((c - 3) * Math.PI / 0.6);
+                return m + (Math.random() - 0.5) * 1.5;
+            }
+
+            function draw() {
+                data.push(ecg());
+                if (data.length > MAX) data.shift();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Fine grid
+                ctx.strokeStyle = 'rgba(0,212,255,0.025)'; ctx.lineWidth = 0.5;
+                for (let y = 0; y < canvas.height; y += 20) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+                for (let x = 0; x < canvas.width; x += 20) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
+
+                // Trace
+                const sp = canvas.width / MAX;
+                ctx.beginPath(); ctx.strokeStyle = '#00d4ff'; ctx.lineWidth = 2;
+                ctx.shadowColor = 'rgba(0,212,255,0.5)'; ctx.shadowBlur = 8;
+                for (let i = 0; i < data.length; i++) {
+                    const x = i * sp;
+                    i === 0 ? ctx.moveTo(x, data[i]) : ctx.lineTo(x, data[i]);
+                }
+                ctx.stroke(); ctx.shadowBlur = 0;
+
+                // Scan glow
+                const sx = (data.length - 1) * sp;
+                const g = ctx.createLinearGradient(sx - 60, 0, sx, 0);
+                g.addColorStop(0, 'transparent');
+                g.addColorStop(1, 'rgba(0,212,255,0.08)');
+                ctx.fillStyle = g; ctx.fillRect(sx - 60, 0, 60, canvas.height);
+
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
+
+        /* ═══ Live ESP32 Data ═══ */
+        (function () {
+            const bpmEl = document.getElementById('liveBpm');
+            const alertEl = document.getElementById('alertBanner');
+            const alertMsg = document.getElementById('alertMsg');
+            const feed = document.getElementById('liveFeed');
+            const connBadge = document.getElementById('connBadge');
+            const connText = document.getElementById('connText');
+            const ecgTag = document.getElementById('ecgStatus');
+            let items = [];
+
+            function fetchLive() {
+                fetch(`/api/v1/live/${PID}`)
+                    .then(r => r.json())
+                    .then(readings => {
+                        if (readings.length > 0) {
+                            const bpm = readings[0].bpm;
+                            const status = readings[0].status;
+
+                            bpmEl.textContent = bpm;
+
+                            // Color
+                            const isCrit = status === 'CRITICAL';
+                            bpmEl.style.color = isCrit ? 'var(--red)' : 'var(--accent)';
+                            bpmEl.style.textShadow = isCrit ?
+                                '0 0 20px rgba(255,45,85,0.4)' : '0 0 20px rgba(0,212,255,0.3)';
+
+                            // Alert
+                            if (isCrit) {
+                                alertEl.classList.add('visible');
+                                alertMsg.textContent = `BPM ${bpm} – ${bpm < 60 ? 'Bradycardia' : 'Tachycardia'} detected`;
+                            } else {
+                                alertEl.classList.remove('visible');
+                            }
+
+                            // Connection online
+                            connBadge.className = 'connection-status online';
+                            connText.textContent = 'ESP32 LIVE';
+                            ecgTag.style.background = 'var(--green-soft)';
+                            ecgTag.style.color = 'var(--green)';
+                            ecgTag.textContent = '● LIVE';
+
+                            // Build feed from all readings
+                            items = readings.slice(0, 12).map(r => ({
+                                time: r.recorded_at || '--:--:--',
+                                bpm: r.bpm,
+                                status: r.status
+                            }));
+
+                            feed.innerHTML = items.map(f => {
+                                const c = f.status === 'CRITICAL';
+                                return `<div class="feed-item">
+                                <span class="feed-timestamp">${f.time}</span>
+                                <span class="feed-bpm" style="color:${c ? 'var(--red)' : 'var(--accent)'};">${f.bpm} BPM</span>
+                                <span class="feed-status ${c ? 'critical' : 'normal'}">${f.status}</span>
+                            </div>`;
+                            }).join('');
+                        } else {
+                            connBadge.className = 'connection-status offline';
+                            connText.textContent = 'NO DATA';
+                            ecgTag.style.background = 'var(--amber-soft)';
+                            ecgTag.style.color = 'var(--amber)';
+                            ecgTag.textContent = '⏳ WAITING';
+                        }
+                    })
+                    .catch(() => {
+                        connBadge.className = 'connection-status offline';
+                        connText.textContent = 'OFFLINE';
+                        ecgTag.style.background = 'var(--red-soft)';
+                        ecgTag.style.color = 'var(--red)';
+                        ecgTag.textContent = '✕ OFFLINE';
+                    });
+            }
+
+            setInterval(fetchLive, 2000);
+            fetchLive();
+        })();
+    </script>
+
+</body>
+
+</html>
