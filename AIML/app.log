@@ -1,0 +1,91 @@
+[2026-07-29 19:46:31] INFO     HealthcareAI.model_loader — Loading model artifacts from: C:\Users\prane\PycharmProjects\AIML\models
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader —   Loaded model.joblib (GradientBoostingClassifier)
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader —   Loaded scaler.joblib (StandardScaler)
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader —   Loaded X_test.joblib (ndarray)
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader —   Loaded y_test.joblib (ndarray)
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader —   Loaded X_train.joblib (ndarray)
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader —   Loaded feature_names.joblib (list)
+[2026-07-29 19:46:32] INFO     HealthcareAI.model_loader — All model artifacts loaded successfully.
+[2026-07-29 19:47:27] INFO     HealthcareAI.model_loader — Loading model artifacts from: C:\Users\prane\PycharmProjects\AIML\models
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader —   Loaded model.joblib (GradientBoostingClassifier)
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader —   Loaded scaler.joblib (StandardScaler)
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader —   Loaded X_test.joblib (ndarray)
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader —   Loaded y_test.joblib (ndarray)
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader —   Loaded X_train.joblib (ndarray)
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader —   Loaded feature_names.joblib (list)
+[2026-07-29 19:47:28] INFO     HealthcareAI.model_loader — All model artifacts loaded successfully.
+[2026-07-29 19:47:28] INFO     HealthcareAI.predict — Prediction: No Heart Disease Detected | Prob: 16.3% | Risk: Low | Confidence: 67.4%
+[2026-07-29 19:47:36] INFO     HealthcareAI — ==================================================
+[2026-07-29 19:47:36] INFO     HealthcareAI — Healthcare AI Application Starting...
+[2026-07-29 19:47:36] INFO     HealthcareAI — ==================================================
+[2026-07-29 19:47:37] INFO     HealthcareAI — Initializing GUI...
+[2026-07-29 19:47:38] INFO     HealthcareAI.app — Created 8 pages.
+[2026-07-29 19:47:38] INFO     HealthcareAI.app — Navigated to: dashboard
+[2026-07-29 19:47:38] INFO     HealthcareAI.app — Application window initialized: 1400x850
+[2026-07-29 19:47:38] INFO     HealthcareAI — Application ready. Entering main loop.
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader — Loading model artifacts from: C:\Users\prane\PycharmProjects\AIML\models
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader —   Loaded model.joblib (GradientBoostingClassifier)
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader —   Loaded scaler.joblib (StandardScaler)
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader —   Loaded X_test.joblib (ndarray)
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader —   Loaded y_test.joblib (ndarray)
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader —   Loaded X_train.joblib (ndarray)
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader —   Loaded feature_names.joblib (list)
+[2026-07-29 19:47:40] INFO     HealthcareAI.model_loader — All model artifacts loaded successfully.
+[2026-07-29 19:47:40] INFO     HealthcareAI.charts — Metrics computed — Accuracy: 0.803, AUC: 0.863
+[2026-07-29 19:49:07] INFO     HealthcareAI — ==================================================
+[2026-07-29 19:49:07] INFO     HealthcareAI — Healthcare AI Application Starting...
+[2026-07-29 19:49:07] INFO     HealthcareAI — ==================================================
+[2026-07-29 19:49:08] INFO     HealthcareAI — Initializing GUI...
+[2026-07-29 19:49:09] INFO     HealthcareAI.app — Created 8 pages.
+[2026-07-29 19:49:09] INFO     HealthcareAI.app — Navigated to: dashboard
+[2026-07-29 19:49:09] INFO     HealthcareAI.app — Application window initialized: 1400x850
+[2026-07-29 19:49:09] INFO     HealthcareAI — Application ready. Entering main loop.
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader — Loading model artifacts from: C:\Users\prane\PycharmProjects\AIML\models
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader —   Loaded model.joblib (GradientBoostingClassifier)
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader —   Loaded scaler.joblib (StandardScaler)
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader —   Loaded X_test.joblib (ndarray)
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader —   Loaded y_test.joblib (ndarray)
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader —   Loaded X_train.joblib (ndarray)
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader —   Loaded feature_names.joblib (list)
+[2026-07-29 19:49:10] INFO     HealthcareAI.model_loader — All model artifacts loaded successfully.
+[2026-07-29 19:49:11] INFO     HealthcareAI.charts — Metrics computed — Accuracy: 0.803, AUC: 0.863
+[2026-07-29 19:49:19] INFO     HealthcareAI.app — Navigated to: prediction
+[2026-07-29 19:49:23] INFO     HealthcareAI.predict — Prediction: Heart Disease Detected | Prob: 62.6% | Risk: Medium | Confidence: 25.3%
+[2026-07-29 19:49:23] INFO     HealthcareAI.pages.prediction — Result displayed: Heart Disease Detected
+[2026-07-29 19:49:39] INFO     HealthcareAI.app — Navigated to: performance
+[2026-07-29 19:49:39] INFO     HealthcareAI.charts — Metrics computed — Accuracy: 0.803, AUC: 0.863
+[2026-07-29 19:49:43] INFO     HealthcareAI.app — Navigated to: shap
+[2026-07-29 19:49:46] INFO     HealthcareAI.shap_explainer — Computing SHAP values (TreeExplainer)...
+[2026-07-29 19:49:46] INFO     HealthcareAI.shap_explainer — SHAP values computed: shape (61, 13)
+[2026-07-29 19:49:51] INFO     HealthcareAI.app — Navigated to: lime
+[2026-07-29 19:49:55] INFO     HealthcareAI.lime_explainer — LIME explainer initialized with 241 training samples.
+[2026-07-29 19:49:55] INFO     HealthcareAI.lime_explainer — Generating LIME explanation for sample...
+[2026-07-29 19:49:55] INFO     HealthcareAI.lime_explainer — LIME explanation generated: 13 features, R²=0.300
+[2026-07-29 19:49:58] INFO     HealthcareAI.app — Navigated to: reports
+[2026-07-29 19:49:59] INFO     HealthcareAI.app — Navigated to: about
+[2026-07-29 19:50:00] INFO     HealthcareAI.app — Navigated to: settings
+[2026-07-29 19:50:01] INFO     HealthcareAI.app — Navigated to: dashboard
+[2026-07-29 19:51:23] INFO     HealthcareAI.app — Navigated to: prediction
+[2026-07-29 19:51:52] INFO     HealthcareAI.predict — Prediction: Heart Disease Detected | Prob: 62.6% | Risk: Medium | Confidence: 25.3%
+[2026-07-29 19:51:53] INFO     HealthcareAI.pages.prediction — Result displayed: Heart Disease Detected
+[2026-07-29 19:51:58] INFO     HealthcareAI.predict — Prediction: No Heart Disease Detected | Prob: 16.3% | Risk: Low | Confidence: 67.4%
+[2026-07-29 19:51:58] INFO     HealthcareAI.pages.prediction — Result displayed: No Heart Disease Detected
+[2026-07-29 19:52:51] INFO     HealthcareAI.app — Navigated to: performance
+[2026-07-29 19:52:52] INFO     HealthcareAI.app — Navigated to: shap
+[2026-07-29 19:52:53] INFO     HealthcareAI.app — Navigated to: lime
+[2026-07-29 20:01:50] INFO     HealthcareAI.app — Navigated to: reports
+[2026-07-29 20:01:53] INFO     HealthcareAI.app — Navigated to: about
+[2026-07-29 20:01:54] INFO     HealthcareAI.app — Navigated to: lime
+[2026-07-29 20:01:56] INFO     HealthcareAI.app — Navigated to: shap
+[2026-07-29 20:01:58] INFO     HealthcareAI.app — Navigated to: performance
+[2026-07-29 20:02:03] INFO     HealthcareAI.app — Navigated to: prediction
+[2026-07-29 20:02:06] INFO     HealthcareAI.app — Navigated to: dashboard
+[2026-07-29 20:02:11] INFO     HealthcareAI.app — Navigated to: prediction
+[2026-07-29 20:02:11] INFO     HealthcareAI.app — Navigated to: performance
+[2026-07-29 20:02:12] INFO     HealthcareAI.app — Navigated to: shap
+[2026-07-29 20:02:12] INFO     HealthcareAI.app — Navigated to: lime
+[2026-07-29 20:02:13] INFO     HealthcareAI.app — Navigated to: reports
+[2026-07-29 20:02:14] INFO     HealthcareAI.app — Navigated to: about
+[2026-07-29 20:02:15] INFO     HealthcareAI.app — Navigated to: settings
+[2026-07-29 20:02:16] INFO     HealthcareAI.app — Navigated to: about
+[2026-07-29 20:02:19] INFO     HealthcareAI — Application closed normally.

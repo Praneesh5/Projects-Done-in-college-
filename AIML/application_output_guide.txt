@@ -1,0 +1,1185 @@
+================================================================================
+  HEALTHCARE AI APPLICATION — COMPLETE OUTPUT EXPLANATION GUIDE
+  Model Interpretability in Clinical ML using SHAP & LIME
+================================================================================
+  This document explains EVERY page, EVERY output field, EVERY keyword,
+  EVERY abbreviation, and EVERY parameter shown in the application.
+  Use this for your viva presentation and academic demonstration.
+================================================================================
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  TABLE OF CONTENTS                                                         ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║  1. TOP NAVIGATION BAR                                                     ║
+║  2. LEFT SIDEBAR NAVIGATION                                                ║
+║  3. FOOTER BAR                                                             ║
+║  4. PAGE 1 — DASHBOARD                                                     ║
+║  5. PAGE 2 — PATIENT PREDICTION                                            ║
+║  6. PAGE 3 — MODEL PERFORMANCE                                             ║
+║  7. PAGE 4 — SHAP ANALYSIS                                                 ║
+║  8. PAGE 5 — LIME ANALYSIS                                                 ║
+║  9. PAGE 6 — REPORTS                                                       ║
+║  10. PAGE 7 — ABOUT                                                        ║
+║  11. PAGE 8 — SETTINGS                                                     ║
+║  12. INPUT PARAMETERS DICTIONARY                                           ║
+║  13. OUTPUT KEYWORDS DICTIONARY                                            ║
+║  14. ABBREVIATIONS & SHORT FORMS                                           ║
+║  15. MODEL DETAILS                                                         ║
+║  16. COLOR CODES USED                                                      ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+
+================================================================================
+1. TOP NAVIGATION BAR
+================================================================================
+
+The top bar is a horizontal strip at the very top of the application window.
+It contains the following elements from left to right:
+
+ELEMENT                 DESCRIPTION
+─────────────────────── ────────────────────────────────────────────────────────
+Heart Icon (❤️)         Application logo. A red heart symbolizing healthcare
+                        and cardiology focus.
+
+"Healthcare AI"         The application brand name. Displayed in blue bold
+                        text (Primary color #2563EB).
+
+"Explainable Clinical   Subtitle describing the purpose — the app provides
+ Prediction"            clinical predictions that are explainable (transparent).
+
+Date Display            Shows the current date in full format.
+                        Example: "July 29, 2026"
+                        Updates every second automatically.
+
+Time Display            Shows the current time in 12-hour format.
+                        Example: "07:53:26 PM"
+                        Updates every second via a live clock.
+
+Status Indicator        A colored dot + label showing model status:
+  ● (Green dot)         "Model Ready" — means model.joblib and scaler.joblib
+                        loaded successfully from the models/ folder.
+  ● (Red dot)           Would appear if the model files are missing or
+                        corrupted, indicating the model failed to load.
+
+
+================================================================================
+2. LEFT SIDEBAR NAVIGATION
+================================================================================
+
+The sidebar is a dark vertical panel on the left side (color: #1E293B).
+It contains 8 navigation buttons, each with an icon and label:
+
+BUTTON              ICON    KEY             DESCRIPTION
+──────────────────  ──────  ──────────────  ────────────────────────────────────
+Dashboard           📊      dashboard       Home page with overview metrics
+Patient Prediction  🩺      prediction      Input form for patient data
+Model Performance   📈      performance     Evaluation metrics and charts
+SHAP Analysis       🔬      shap            SHAP interpretability plots
+LIME Analysis       🧪      lime            LIME local explanations
+Reports             📄      reports         PDF/CSV generation and export
+About               ℹ️      about           Project and developer information
+Settings            ⚙️      settings        Appearance and configuration
+
+HOW NAVIGATION WORKS:
+- Click any sidebar button to switch to that page
+- The active page button turns blue (#2563EB) with white text
+- Inactive buttons are transparent with gray text (#CBD5E1)
+- Only one page is visible at a time (frame stacking technique)
+
+"NAVIGATION" LABEL:
+- The word "NAVIGATION" appears at the top of the sidebar in small caps
+- This is a section header, not a clickable button
+
+VERSION NUMBER:
+- "v1.0.0" appears at the bottom of the sidebar
+- This is the application version number
+
+
+================================================================================
+3. FOOTER BAR
+================================================================================
+
+The footer is a thin horizontal bar at the very bottom of the window.
+
+ELEMENT                     POSITION    DESCRIPTION
+─────────────────────────── ─────────── ────────────────────────────────────────
+"Your University Name"      Left        Placeholder for your actual university
+                                        name. Edit in gui/app.py line ~235.
+
+"Model Interpretability     Center      Full project title with version number.
+ in Clinical ML v1.0.0"
+
+"Developed by: Your Name"   Right       Placeholder for your actual name.
+                                        Edit in gui/app.py line ~241.
+
+
+================================================================================
+4. PAGE 1 — DASHBOARD
+================================================================================
+
+The dashboard is the landing page shown when the application starts.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: WELCOME HEADER (Blue gradient banner)
+────────────────────────────────────────────────────────────────────────────────
+
+OUTPUT                                  MEANING
+─────────────────────────────────────── ────────────────────────────────────────
+"🧠 Welcome to the Healthcare          Main greeting banner. The brain icon
+ AI Dashboard"                          represents AI/machine learning.
+
+"Model Interpretability in              The full academic project title.
+ Clinical ML using SHAP & LIME"
+
+"Explainable AI for Heart               Describes the specific clinical
+ Disease Prediction"                    application — predicting heart disease.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: MODEL OVERVIEW — 4 Metric Cards
+────────────────────────────────────────────────────────────────────────────────
+
+Each card has: an icon, a large value, a title, and a subtitle.
+
+CARD 1 — Model Accuracy (Green accent)
+  Icon:     📉
+  Value:    "80.3%" (or "—" if not yet loaded)
+  Title:    "Model Accuracy"
+  Subtitle: "Test set evaluation"
+  MEANING:  The model correctly predicted 80.3% of the 61 test patients.
+            This is computed by comparing predicted labels to actual labels.
+            Formula: (True Positives + True Negatives) / Total Samples
+
+CARD 2 — Clinical Features (Blue accent)
+  Icon:     🔍
+  Value:    "13"
+  Title:    "Clinical Features"
+  Subtitle: "Heart disease indicators"
+  MEANING:  The model uses 13 medical measurements (input variables) to
+            make its prediction. These are the 13 columns in the dataset.
+
+CARD 3 — Model Type (Cyan accent)
+  Icon:     🧠
+  Value:    "GBM"
+  Title:    "Model Type"
+  Subtitle: "Gradient Boosting Machine"
+  MEANING:  GBM stands for Gradient Boosting Machine. It is the machine
+            learning algorithm used. GBM builds many small decision trees
+            sequentially, where each new tree corrects errors of the
+            previous ones. It is excellent for structured/tabular data.
+
+CARD 4 — Dataset Size (Amber accent)
+  Icon:     👤
+  Value:    "302"
+  Title:    "Dataset Size"
+  Subtitle: "Cleaned patient records"
+  MEANING:  The model was trained on 302 patient records from the UCI
+            Heart Disease (Cleveland) dataset after removing duplicates.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: QUICK ACTIONS — 5 Navigation Buttons
+────────────────────────────────────────────────────────────────────────────────
+
+BUTTON                  COLOR       ACTION
+──────────────────────  ──────────  ────────────────────────────────────────
+🩺 Run Prediction       Blue        Navigates to the Patient Prediction page
+📈 View Performance     Green       Navigates to Model Performance page
+🔬 SHAP Analysis        Purple      Navigates to SHAP Analysis page
+🧪 LIME Analysis        Amber       Navigates to LIME Analysis page
+📄 Generate Report      Red         Navigates to Reports page
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: ABOUT THIS SYSTEM — Information Card
+────────────────────────────────────────────────────────────────────────────────
+
+A text block explaining:
+  - What the application does (heart disease prediction with XAI)
+  - What algorithms it uses (Gradient Boosting + SHAP + LIME)
+  - What dataset it uses (UCI Heart Disease, 13 features)
+  - What it is designed for (academic research, clinical decision support)
+
+
+================================================================================
+5. PAGE 2 — PATIENT PREDICTION
+================================================================================
+
+This page has TWO main sections side by side:
+  LEFT:  Input form (13 clinical parameters)
+  RIGHT: Result card (prediction output)
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: INPUT FORM — 13 Clinical Parameters
+────────────────────────────────────────────────────────────────────────────────
+
+Each field has: a label, an asterisk (*) meaning required, a tooltip on
+hover, and an error message area below it.
+
+FIELD 1: Age
+  Type:       Numeric text entry
+  Range:      29 to 120 years
+  Tooltip:    "Patient's age in years (29–77 typical range)"
+  Example:    55
+  MEANING:    The patient's age. Older age increases heart disease risk.
+
+FIELD 2: Sex
+  Type:       Dropdown menu
+  Values:     "Female" (0), "Male" (1)
+  Tooltip:    "0 = Female, 1 = Male"
+  MEANING:    Biological sex. Males have statistically higher heart
+              disease rates in the training dataset.
+
+FIELD 3: Chest Pain Type (cp)
+  Type:       Dropdown menu
+  Values:     "Typical Angina" (0)      — Classic exertional chest pain
+              "Atypical Angina" (1)     — Unusual chest pain pattern
+              "Non-anginal Pain" (2)    — Chest pain not from the heart
+              "Asymptomatic" (3)        — No chest pain symptoms
+  Tooltip:    "0 = Typical Angina, 1 = Atypical, 2 = Non-anginal,
+               3 = Asymptomatic"
+  MEANING:    The type of chest pain the patient experiences.
+              "Asymptomatic" (3) is actually the MOST concerning because
+              it means heart disease may be present without obvious pain.
+
+FIELD 4: Resting Blood Pressure (trestbps)
+  Type:       Numeric text entry
+  Range:      50 to 250 mm Hg
+  Tooltip:    "Resting blood pressure in mm Hg (94–200 typical)"
+  Unit:       mm Hg (millimeters of mercury)
+  Example:    140
+  MEANING:    Blood pressure measured while the patient is at rest.
+              Normal: <120 mm Hg. High (hypertension): >140 mm Hg.
+              High blood pressure is a major heart disease risk factor.
+
+FIELD 5: Serum Cholesterol (chol)
+  Type:       Numeric text entry
+  Range:      50 to 700 mg/dl
+  Tooltip:    "Serum cholesterol in mg/dl (126–564 typical)"
+  Unit:       mg/dl (milligrams per deciliter)
+  Example:    260
+  MEANING:    Total cholesterol level in the blood.
+              Normal: <200 mg/dl. Borderline: 200–239. High: ≥240.
+              High cholesterol leads to plaque buildup in arteries.
+
+FIELD 6: Fasting Blood Sugar (fbs)
+  Type:       Dropdown menu
+  Values:     "≤ 120 mg/dl (Normal)" (0)
+              "> 120 mg/dl (High)" (1)
+  Tooltip:    "Fasting blood sugar > 120 mg/dl: 0 = No, 1 = Yes"
+  MEANING:    Whether blood sugar after fasting exceeds 120 mg/dl.
+              High fasting blood sugar may indicate diabetes, which
+              is a risk factor for heart disease.
+
+FIELD 7: Resting ECG (restecg)
+  Type:       Dropdown menu
+  Values:     "Normal" (0)                    — Normal ECG reading
+              "ST-T Abnormality" (1)          — ST-T wave changes
+              "LV Hypertrophy" (2)            — Left ventricle thickening
+  Tooltip:    "0 = Normal, 1 = ST-T abnormality, 2 = LV hypertrophy"
+  MEANING:    Results of the resting electrocardiogram test.
+              ECG = Electrocardiogram, a test that measures heart
+              electrical activity. ST-T waves are specific patterns
+              on the ECG trace. Abnormalities suggest heart problems.
+              LV Hypertrophy = left ventricle wall thickening.
+
+FIELD 8: Maximum Heart Rate (thalach)
+  Type:       Numeric text entry
+  Range:      50 to 250 bpm
+  Tooltip:    "Maximum heart rate achieved (71–202 typical)"
+  Unit:       bpm (beats per minute)
+  Example:    145
+  MEANING:    The highest heart rate the patient achieved during
+              exercise testing. Lower maximum heart rates can indicate
+              heart problems (the heart cannot work hard enough).
+
+FIELD 9: Exercise Induced Angina (exang)
+  Type:       Dropdown menu
+  Values:     "No" (0), "Yes" (1)
+  Tooltip:    "Exercise induced angina: 0 = No, 1 = Yes"
+  MEANING:    Whether the patient experienced chest pain (angina)
+              during exercise. "Yes" strongly suggests coronary
+              artery disease because the heart cannot get enough
+              blood during physical exertion.
+
+FIELD 10: ST Depression / Oldpeak (oldpeak)
+  Type:       Numeric text entry
+  Range:      0.0 to 10.0
+  Tooltip:    "ST depression induced by exercise (0.0–6.2 typical)"
+  Unit:       Millimeters of ST segment depression
+  Example:    2.0
+  MEANING:    How much the ST segment on the ECG drops during exercise
+              compared to rest. Higher values indicate more severe
+              heart ischemia (lack of blood flow to the heart).
+              ST = a specific segment between the S and T waves on ECG.
+
+FIELD 11: ST Slope (slope)
+  Type:       Dropdown menu
+  Values:     "Upsloping" (0)     — ST segment goes upward (more normal)
+              "Flat" (1)          — ST segment stays level (concerning)
+              "Downsloping" (2)   — ST segment goes downward (most concerning)
+  Tooltip:    "Slope of peak exercise ST: 0 = Up, 1 = Flat, 2 = Down"
+  MEANING:    The direction of the ST segment slope during peak exercise.
+              Downsloping is the most indicative of heart disease.
+
+FIELD 12: Number of Major Vessels (ca)
+  Type:       Dropdown menu
+  Values:     "0" (0), "1" (1), "2" (2), "3" (3), "4" (4)
+  Tooltip:    "Number of major vessels colored by fluoroscopy (0–4)"
+  MEANING:    How many of the major coronary arteries showed blockage
+              when viewed with fluoroscopy (a type of X-ray imaging
+              using a contrast dye). More blocked vessels = higher risk.
+              0 = no blocked vessels, 4 = all four major vessels blocked.
+
+FIELD 13: Thalassemia (thal)
+  Type:       Dropdown menu
+  Values:     "Normal" (0)            — No thalassemia
+              "Fixed Defect" (1)      — Permanent heart muscle damage
+              "Reversible Defect" (2) — Temporary blood flow problem
+              "Thalassemia" (3)       — Blood disorder present
+  Tooltip:    "0 = Normal, 1 = Fixed defect, 2 = Reversible defect,
+               3 = Thalassemia"
+  MEANING:    Results from a thallium stress test. Thallium is a
+              radioactive tracer injected into the blood to show
+              blood flow through the heart muscle.
+              Fixed defect = permanent damage (e.g., from a past
+              heart attack). Reversible defect = temporary reduced
+              blood flow (suggests treatable coronary artery disease).
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: ACTION BUTTONS (Below the form)
+────────────────────────────────────────────────────────────────────────────────
+
+BUTTON              ICON    COLOR       ACTION
+──────────────────  ──────  ──────────  ────────────────────────────────────────
+"Predict"           ❤️      Blue        Runs the ML model on the entered data.
+                                        Validates all 13 fields first.
+                                        Shows a loading spinner during processing.
+
+"Clear"             🔄      Gray        Resets all fields to their default values.
+                                        Clears any error messages.
+                                        Resets the result panel to placeholder.
+
+"Sample Data"       ✨      Cyan        Auto-fills the form with realistic sample
+                                        patient data for demonstration purposes.
+                                        Values: Age=55, Male, Typical Angina,
+                                        BP=140, Chol=260, FBS Normal, etc.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: PREDICTION RESULT CARD (Right panel, after clicking Predict)
+────────────────────────────────────────────────────────────────────────────────
+
+OUTPUT FIELD                EXAMPLE VALUE                MEANING
+──────────────────────────  ───────────────────────────  ──────────────────────
+Prediction Label            "No Heart Disease Detected"  The binary classification
+                            or                           result. Either disease
+                            "Heart Disease Detected"     is present (1) or not (0).
+
+  Icon:                     ✅ (green checkmark)         No Disease detected.
+                            ⚠️ (warning triangle)        Disease detected.
+
+Disease Probability         "16.3%"                      The model's estimated
+                                                         probability that this
+                                                         patient HAS heart disease.
+                                                         Range: 0.0% to 100.0%.
+                                                         Calculated by the model's
+                                                         predict_proba() function.
+
+Model Confidence            "67.4%"                      How certain the model is
+                                                         about its prediction.
+                                                         Formula: |probability - 50%| × 2
+                                                         A 95% probability = 90% confidence
+                                                         A 55% probability = 10% confidence
+                                                         A 50% probability = 0% confidence
+                                                         Higher = more certain.
+
+Risk Level Badge            "LOW RISK" (green)           Risk categorization:
+                            "MODERATE RISK" (amber)        < 30% probability → LOW
+                            "HIGH RISK" (red)              30%–70%          → MEDIUM
+                                                           > 70%            → HIGH
+
+Risk Gauge                  Semi-circular meter           Visual gauge divided into
+                            with a needle pointing        three colored arcs:
+                            to the probability value.       Green (left)  = Low
+                                                            Amber (center) = Medium
+                                                            Red (right)    = High
+                                                          The needle animates from
+                                                          0% to the actual value.
+                                                          The percentage is shown
+                                                          as text below the gauge.
+
+Clinical Recommendation     Multi-line text box           AI-generated clinical
+                                                          guidance based on risk:
+
+  LOW RISK recommendations include:
+    • Continue healthy lifestyle with regular exercise
+    • Monitor blood pressure and cholesterol annually
+    • No immediate cardiac intervention indicated
+    • Consult physician for routine preventive care
+
+  MEDIUM RISK recommendations include:
+    • Schedule follow-up with cardiologist
+    • Consider additional diagnostic tests
+    • Adopt lifestyle modifications
+    • Monitor BP, cholesterol, blood sugar closely
+    • Review family history
+
+  HIGH RISK recommendations include:
+    • Urgent cardiology referral recommended
+    • Comprehensive cardiac evaluation needed
+    • Consider coronary angiography
+    • Aggressive risk factor management
+    • Begin pharmacological intervention
+    • This is a screening result — clinical judgment applies
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: INPUT VALIDATION ERROR MESSAGES
+────────────────────────────────────────────────────────────────────────────────
+
+When invalid data is entered, red error messages appear below the field:
+
+ERROR MESSAGE                           TRIGGER CONDITION
+─────────────────────────────────────── ────────────────────────────────────────
+"Age is required."                      Field is empty/blank
+"Age: Please enter a valid number."     Non-numeric text entered (e.g., "abc")
+"Age: Value must be between 1 and 120." Number outside the valid range
+"Chest Pain Type: Allowed values        Invalid categorical value
+ are 0, 1, 2, 3."
+
+The field border also turns RED (#DC2626) to visually highlight the error.
+
+
+================================================================================
+6. PAGE 3 — MODEL PERFORMANCE
+================================================================================
+
+This page displays evaluation metrics computed on the 61 test patients
+that were held out during training (never seen by the model during learning).
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: METRIC CARDS — 5 Performance Indicators
+────────────────────────────────────────────────────────────────────────────────
+
+CARD        VALUE     ICON  COLOR    FULL MEANING
+──────────  ────────  ────  ───────  ───────────────────────────────────────────
+Accuracy    0.8033    ✓     Green    Percentage of ALL predictions that were
+                                     correct (both disease and no-disease).
+                                     Formula: (TP + TN) / (TP + TN + FP + FN)
+                                     80.33% means 49 out of 61 patients were
+                                     correctly classified.
+
+Precision   0.8182    🎯    Blue     Of patients PREDICTED to have disease,
+                                     what percentage ACTUALLY had disease.
+                                     Formula: TP / (TP + FP)
+                                     81.82% means when the model says "disease",
+                                     it is correct 81.82% of the time.
+                                     Measures: How trustworthy are positive
+                                     predictions?
+
+Recall      0.8182    📋    Amber    Of patients who ACTUALLY have disease,
+                                     what percentage did the model CATCH.
+                                     Formula: TP / (TP + FN)
+                                     81.82% means the model catches 81.82%
+                                     of actual disease cases.
+                                     Also called: Sensitivity, True Positive Rate
+                                     Measures: How many sick patients does the
+                                     model miss?
+
+F1 Score    0.8182    ⚖️    Cyan     The harmonic mean of Precision and Recall.
+                                     Formula: 2 × (Precision × Recall) /
+                                              (Precision + Recall)
+                                     Balances both metrics into a single number.
+                                     Range: 0 to 1 (higher is better).
+                                     Useful when you care about both false
+                                     positives AND false negatives.
+
+ROC AUC     0.8626    📐    Purple   Area Under the ROC Curve.
+                                     Measures how well the model separates
+                                     disease from no-disease across ALL
+                                     probability thresholds.
+                                     Range: 0.5 (random guessing) to 1.0 (perfect).
+                                     0.8626 = "good" discrimination ability.
+                                     Advantage: Not affected by class imbalance.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: CROSS-VALIDATION SCORE
+────────────────────────────────────────────────────────────────────────────────
+
+OUTPUT                              MEANING
+──────────────────────────────────  ────────────────────────────────────────────
+"Cross-Validation Accuracy:         5-Fold Cross-Validation result.
+ 0.8010 ± 0.0494 (5-Fold CV)"       The training data was split into 5 equal
+                                    parts ("folds"). The model was trained on
+                                    4 folds and tested on the 5th, repeated
+                                    5 times with different test folds.
+
+                                    0.8010 = average accuracy across 5 rounds
+                                    ± 0.0494 = standard deviation (spread)
+
+                                    This validates that the model's performance
+                                    is consistent, not just luck from one split.
+
+Where:
+  TP = True Positive  = Patient HAS disease, model predicted DISEASE     (27)
+  TN = True Negative  = Patient has NO disease, model predicted NO DISEASE (22)
+  FP = False Positive = Patient has NO disease, model predicted DISEASE   (6)
+  FN = False Negative = Patient HAS disease, model predicted NO DISEASE   (6)
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: CONFUSION MATRIX (Heatmap Chart)
+────────────────────────────────────────────────────────────────────────────────
+
+A 2×2 grid showing prediction outcomes:
+
+                        PREDICTED: No Disease    PREDICTED: Disease
+  ACTUAL: No Disease        22 (TN)                  6 (FP)
+  ACTUAL: Disease            6 (FN)                 27 (TP)
+
+READING THE MATRIX:
+  - TOP-LEFT (22):   True Negatives. Correctly predicted "No Disease". GOOD.
+  - TOP-RIGHT (6):   False Positives. Healthy patients wrongly flagged. BAD.
+                     Also called "Type I Error" or "False Alarm".
+  - BOTTOM-LEFT (6): False Negatives. Sick patients missed. WORST in healthcare.
+                     Also called "Type II Error" or "Missed Detection".
+  - BOTTOM-RIGHT (27): True Positives. Correctly predicted "Disease". GOOD.
+
+COLOR CODING:
+  - Darker blue = higher count
+  - White text on dark cells, dark text on light cells
+  - The diagonal (TN, TP) should ideally be the darkest.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: ROC CURVE (Chart)
+────────────────────────────────────────────────────────────────────────────────
+
+OUTPUT ELEMENT               MEANING
+───────────────────────────  ───────────────────────────────────────────────────
+ROC Curve (blue line)        Receiver Operating Characteristic curve.
+                             Plots True Positive Rate (y-axis) vs
+                             False Positive Rate (x-axis) at every
+                             possible classification threshold.
+
+AUC = 0.863 (shaded area)   Area Under the Curve. The total area below
+                             the blue curve. Larger area = better model.
+                             0.5 = useless (random), 1.0 = perfect.
+
+Diagonal dashed line         Represents a random classifier (coin flip).
+                             Any model should be ABOVE this line.
+
+WHERE:
+  True Positive Rate (TPR)  = Recall = TP / (TP + FN) = Sensitivity
+  False Positive Rate (FPR) = FP / (FP + TN) = 1 - Specificity
+
+INTERPRETATION:
+  The curve bows toward the top-left corner, which is ideal.
+  At any threshold, the model catches more true positives than
+  it creates false positives. AUC of 0.863 is considered "good".
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: FEATURE IMPORTANCE (Horizontal Bar Chart)
+────────────────────────────────────────────────────────────────────────────────
+
+Shows how much each of the 13 features contributed to the model's
+decision-making ability during training. Calculated from the
+GradientBoosting model's internal feature_importances_ attribute.
+
+HOW TO READ:
+  - Longer bars = more important features
+  - Features are sorted from least important (top) to most important (bottom)
+  - Gradient blue colors (darker = more important)
+
+TYPICAL TOP FEATURES (order may vary):
+  - Thalassemia (thal)        — Often the #1 most important feature
+  - Major Vessels (ca)        — Number of blocked arteries
+  - Chest Pain Type (cp)      — Type of chest pain
+  - Maximum Heart Rate        — Exercise capacity
+  - ST Depression (oldpeak)   — ECG abnormality during exercise
+
+NOTE: Feature importance here shows how often a feature was used
+for splitting in the decision trees. It does NOT show the direction
+(positive or negative) — SHAP does that.
+
+
+================================================================================
+7. PAGE 4 — SHAP ANALYSIS
+================================================================================
+
+SHAP = SHapley Additive exPlanations
+
+SHAP is based on Shapley values from cooperative game theory (1953).
+It answers: "How much did each feature contribute to THIS specific
+prediction, compared to the average prediction?"
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: PLOT SELECTION BUTTONS (Top row)
+────────────────────────────────────────────────────────────────────────────────
+
+BUTTON              ACTION
+──────────────────  ────────────────────────────────────────────────────────────
+Summary Plot        Shows beeswarm plot of SHAP values for ALL test patients
+Bar Plot            Shows mean absolute SHAP values per feature
+Waterfall Plot      Shows feature breakdown for a SINGLE patient prediction
+Force Plot          Shows push/pull forces for a SINGLE prediction
+Dependence Plot     Shows how ONE feature's value relates to its SHAP value
+Patient SHAP        Shows SHAP values for YOUR most recent prediction input
+
+────────────────────────────────────────────────────────────────────────────────
+PLOT 1: SHAP SUMMARY PLOT (Beeswarm)
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+Each dot                One patient (test sample)
+X-axis                  SHAP value = impact on model output
+                          Positive = pushes toward "Disease"
+                          Negative = pushes toward "No Disease"
+Y-axis                  Feature name (sorted by importance)
+Dot color               Feature VALUE for that patient:
+                          Red/Pink  = HIGH feature value
+                          Blue      = LOW feature value
+Dot position            How much that feature pushed the prediction
+
+HOW TO READ EXAMPLE:
+  If "Age" has red dots on the RIGHT side:
+    → High age values push predictions TOWARD heart disease.
+  If "Maximum Heart Rate" has red dots on the LEFT side:
+    → High heart rates push predictions AWAY from heart disease.
+
+────────────────────────────────────────────────────────────────────────────────
+PLOT 2: SHAP BAR PLOT
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+Horizontal bars         Mean |SHAP value| for each feature across ALL patients
+Bar length              Average absolute contribution to predictions
+                          Longer bar = more important feature
+Sorted order            Most important at the top
+
+DIFFERENCE FROM FEATURE IMPORTANCE:
+  Feature Importance (Performance page) = how often the feature is used
+  SHAP Bar Plot = how much the feature CHANGES the output on average
+  SHAP is more mathematically rigorous and theoretically grounded.
+
+────────────────────────────────────────────────────────────────────────────────
+PLOT 3: SHAP WATERFALL PLOT
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+E[f(x)] or base value   The average model output (starting point)
+Each bar                 One feature's contribution:
+  Red bars               Push prediction HIGHER (toward disease)
+  Blue bars              Push prediction LOWER (away from disease)
+Final value f(x)         The actual model output for this patient
+Arrow direction          Shows whether feature increased or decreased risk
+
+HOW TO READ:
+  Start at the base value. Each feature adds or subtracts from it.
+  The final result is the predicted log-odds for this patient.
+
+────────────────────────────────────────────────────────────────────────────────
+PLOT 4: SHAP FORCE PLOT
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+Red region              Features pushing TOWARD heart disease
+Blue region             Features pushing AWAY FROM heart disease
+Width of each segment   Magnitude of that feature's contribution
+Base value              Average prediction (where red and blue meet)
+Bold value              The actual prediction output
+
+This is a "tug of war" visualization — red and blue forces compete.
+
+────────────────────────────────────────────────────────────────────────────────
+PLOT 5: SHAP DEPENDENCE PLOT
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+X-axis                  The selected feature's actual values
+Y-axis                  The SHAP value for that feature
+Each dot                One patient
+Dot color               Value of the strongest INTERACTING feature
+                        (automatically detected by SHAP)
+
+HOW TO READ:
+  Shows the RELATIONSHIP between a feature's value and its impact.
+  Example: If Age increases and SHAP values also increase,
+  it means higher age → higher predicted risk.
+
+────────────────────────────────────────────────────────────────────────────────
+PLOT 6: PATIENT SHAP (Custom bar chart)
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+Horizontal bars         SHAP values for YOUR specific patient input
+Red bars                Features that INCREASED this patient's risk
+Blue bars               Features that DECREASED this patient's risk
+Bar length              Magnitude of contribution
+Sorted by |SHAP|        Most impactful features appear at the top
+
+PREREQUISITE: Must run a prediction on the Patient Prediction page first.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: EXPLANATION PANEL (Below each chart)
+────────────────────────────────────────────────────────────────────────────────
+
+Each chart has a plain-English explanation panel below it.
+
+EXAMPLE EXPLANATIONS:
+
+  "1. Thalassemia: Mean |SHAP| = 0.3421 (28.5% of total impact)"
+    → Thalassemia is the most influential feature, responsible for
+      28.5% of all prediction changes across the test set.
+
+  "• Maximum Heart Rate strongly decreased the predicted risk (SHAP = -0.4512)"
+    → For this specific patient, having a high max heart rate significantly
+      reduced the model's predicted probability of heart disease.
+
+  "• Exercise Induced Angina moderately increased the predicted risk (SHAP = +0.2345)"
+    → For this patient, having exercise-induced angina pushed the
+      prediction toward heart disease.
+
+SHAP VALUE INTERPRETATION GUIDE:
+  |SHAP| > 0.5   → "strongly" influences the prediction
+  |SHAP| 0.2–0.5 → "moderately" influences
+  |SHAP| < 0.2   → "slightly" influences
+  SHAP > 0        → increases disease risk
+  SHAP < 0        → decreases disease risk
+
+
+================================================================================
+8. PAGE 5 — LIME ANALYSIS
+================================================================================
+
+LIME = Local Interpretable Model-agnostic Explanations
+
+LIME explains individual predictions by creating a simpler,
+interpretable "surrogate" model around the specific patient's data.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: ACTION BUTTON
+────────────────────────────────────────────────────────────────────────────────
+
+"Generate LIME Explanation" button (blue)
+  - Requires a prediction to be run on the Patient Prediction page first
+  - Shows a loading spinner during computation
+  - LIME perturbs the input and trains a local linear model
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: LIME BAR CHART
+────────────────────────────────────────────────────────────────────────────────
+
+ELEMENT                 MEANING
+──────────────────────  ────────────────────────────────────────────────────────
+Horizontal bars         Feature weights from the local linear model
+Red bars                Features pushing toward "Heart Disease" (positive weight)
+Blue bars               Features pushing toward "No Disease" (negative weight)
+Bar length              Magnitude of contribution
+Feature labels          May include conditions like "Age > 55.50" or
+                        "Chest Pain Type <= 0.50" — these are the
+                        discretized feature conditions LIME identified.
+Sorted order            Features sorted by absolute weight (most impactful first)
+
+LEGEND:
+  Red  = "Pushes toward Disease"
+  Blue = "Pushes toward No Disease"
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: FEATURE CONTRIBUTION TABLE
+────────────────────────────────────────────────────────────────────────────────
+
+A tabular display with three columns:
+
+COLUMN          MEANING
+──────────────  ────────────────────────────────────────────────────────────────
+Feature         The feature condition identified by LIME.
+                Example: "Age > 55.50" means this patient's age is above 55.5
+                Example: "0.50 < Thalassemia <= 2.50" means thal value is 1 or 2
+
+Weight          The numerical weight (coefficient) from the local linear model.
+                Example: +0.1234 or -0.0567
+                Larger absolute value = stronger contribution.
+                The sign indicates direction (positive = toward disease).
+
+Direction       ▲ Positive = pushes prediction toward Heart Disease
+                ▼ Negative = pushes prediction toward No Disease
+                Color coded: Red for positive, Blue for negative.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: LOCAL MODEL FIDELITY SCORE
+────────────────────────────────────────────────────────────────────────────────
+
+OUTPUT                              MEANING
+──────────────────────────────────  ────────────────────────────────────────────
+"Local Model Fidelity (R²): 0.85"  R-squared score of the local linear model.
+                                    How well the simple linear model approximates
+                                    the complex GradientBoosting model LOCALLY
+                                    (in the neighborhood of this patient).
+
+                                    Range: 0.0 to 1.0
+                                    1.0 = perfect local approximation
+                                    0.0 = linear model cannot explain the
+                                          complex model's behavior here
+
+                                    Values > 0.7 are generally good.
+                                    Higher R² = more trustworthy explanation.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: PLAIN-ENGLISH EXPLANATION
+────────────────────────────────────────────────────────────────────────────────
+
+Text panel explaining the LIME results in natural language.
+
+EXAMPLE OUTPUT:
+  "LIME Explanation for Predicted Class: No Disease
+   ═══════════════════════════════════════════════════
+
+   The model made this prediction based on the following
+   local feature contributions:
+
+     ✦ Age > 55.50: weight = +0.0891 (contradicts the prediction)
+     ✧ 0.50 < Chest Pain Type <= 1.50: weight = -0.1234 (supports the prediction)
+     ✧ Maximum Heart Rate > 152.50: weight = -0.0654 (supports the prediction)
+
+   Positive weights push the prediction toward Heart Disease.
+   Negative weights push the prediction toward No Disease.
+
+   LIME fits a local linear model around this patient's features
+   to approximate the complex model's behavior in this region."
+
+WHERE:
+  ✦ (filled diamond) = Positive weight (pushes toward disease)
+  ✧ (open diamond)   = Negative weight (pushes toward no disease)
+  "supports"         = Agrees with the final prediction
+  "contradicts"      = Disagrees with the final prediction
+
+
+================================================================================
+9. PAGE 6 — REPORTS
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: GENERATE PATIENT PDF REPORT
+────────────────────────────────────────────────────────────────────────────────
+
+Creates a multi-page PDF document containing:
+
+PDF SECTION                 CONTENT
+──────────────────────────  ────────────────────────────────────────────────────
+Hospital Header             "🏥 Your Hospital / Institution Name"
+                            "Department of Cardiology — AI-Assisted Diagnostic Report"
+
+Report Metadata             Report Date (e.g., "July 29, 2026")
+                            Report Time (e.g., "07:53 PM")
+                            Report ID (e.g., "RPT-20260729-195326")
+
+Patient Clinical            Table with all 13 input parameters and their
+Parameters                  clinical labels (e.g., "Male" instead of "1")
+
+Prediction Result           Prediction label, probability percentage,
+                            confidence percentage, risk level badge
+
+Clinical Recommendation     Multi-line guidance based on risk category
+
+SHAP Interpretation         Plain-English SHAP explanation (if generated)
+
+LIME Interpretation         Plain-English LIME explanation (if generated)
+
+Model Performance           Accuracy, Precision, Recall, F1, AUC table
+Summary                     (if the Performance page was loaded)
+
+Disclaimer                  Legal notice: "This is NOT a substitute for
+                            professional medical diagnosis"
+
+Footer                      University name, project title, version,
+                            generation timestamp, developer name
+
+FILE SAVED TO:              reports/patient_report_YYYYMMDD_HHMMSS.pdf
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: EXPORT CHARTS & IMAGES
+────────────────────────────────────────────────────────────────────────────────
+
+BUTTON              OUTPUT
+──────────────────  ────────────────────────────────────────────────────────────
+Save SHAP Plot      Saves the currently displayed SHAP chart as a PNG image
+                    at 150 DPI resolution. Opens a file save dialog.
+
+Save LIME Plot      Saves the currently displayed LIME chart as a PNG image
+                    at 150 DPI resolution. Opens a file save dialog.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: EXPORT PREDICTION DATA
+────────────────────────────────────────────────────────────────────────────────
+
+"Export CSV" button creates a .csv file containing:
+  - Timestamp
+  - All 13 patient inputs with clinical labels
+  - Prediction result (Disease / No Disease)
+  - Probability percentage
+  - Confidence percentage
+  - Risk category
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: GENERATED REPORTS LIST
+────────────────────────────────────────────────────────────────────────────────
+
+Shows the 10 most recent PDF files in the reports/ folder.
+Each entry shows:
+  - 📄 icon + filename (e.g., "patient_report_20260729_195326.pdf")
+  - File size in KB
+  - "Open" button to launch the PDF in the default viewer
+
+
+================================================================================
+10. PAGE 7 — ABOUT
+================================================================================
+
+Information-only page with styled cards. No interactive elements.
+
+CARD                    CONTENT
+──────────────────────  ────────────────────────────────────────────────────────
+Project Overview        What the app does, why XAI matters in healthcare
+
+Technology Stack        Python 3.12, CustomTkinter, Scikit-learn,
+                        SHAP 0.52, LIME 0.2, Matplotlib, ReportLab,
+                        Pandas, NumPy, Joblib, PyInstaller
+
+Dataset Information     UCI Heart Disease (Cleveland), 302 patients,
+                        13 features, binary target, class balance
+
+Model Architecture      GradientBoostingClassifier, 200 estimators
+                        (19 used via early stopping), learning rate 0.1,
+                        max depth 4, StandardScaler preprocessing
+
+Explainability Methods  SHAP: Shapley values, TreeExplainer, 5 plot types
+                        LIME: Local linear surrogate, model-agnostic
+
+Credits                 Developer name, university, department,
+                        guide/professor, version 1.0.0
+
+
+================================================================================
+11. PAGE 8 — SETTINGS
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: APPEARANCE MODE
+────────────────────────────────────────────────────────────────────────────────
+
+OPTION      EFFECT
+──────────  ────────────────────────────────────────────────────────────────────
+Light       White/light gray backgrounds, dark text (DEFAULT and recommended)
+Dark        Dark backgrounds, light text (modern dark mode)
+System      Follows the Windows system theme setting
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: APPLICATION PATHS
+────────────────────────────────────────────────────────────────────────────────
+
+Shows the absolute file paths used by the application:
+
+PATH NAME           EXAMPLE VALUE
+──────────────────  ────────────────────────────────────────────────────────────
+Application Root    C:\Users\prane\PycharmProjects\AIML
+Model Artifacts     C:\Users\prane\PycharmProjects\AIML\models
+Reports Output      C:\Users\prane\PycharmProjects\AIML\reports
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION: SYSTEM INFORMATION
+────────────────────────────────────────────────────────────────────────────────
+
+INFO                    EXAMPLE VALUE
+──────────────────────  ────────────────────────────────────────────────────────
+Python Version          3.12.10
+Platform                Windows-10-10.0.19045-SP0
+Architecture            AMD64
+Application Version     1.0.0
+
+
+================================================================================
+12. INPUT PARAMETERS DICTIONARY — Complete Reference
+================================================================================
+
+PARAMETER     FULL NAME                   TYPE         RANGE      UNIT
+────────────  ──────────────────────────  ───────────  ─────────  ──────────
+age           Age                         Continuous   29–120     years
+sex           Sex                         Binary       0, 1       —
+cp            Chest Pain Type             Categorical  0, 1, 2, 3 —
+trestbps      Resting Blood Pressure      Continuous   50–250     mm Hg
+chol          Serum Cholesterol           Continuous   50–700     mg/dl
+fbs           Fasting Blood Sugar         Binary       0, 1       —
+restecg       Resting ECG                 Categorical  0, 1, 2    —
+thalach       Maximum Heart Rate          Continuous   50–250     bpm
+exang         Exercise Induced Angina     Binary       0, 1       —
+oldpeak       ST Depression (Oldpeak)     Continuous   0.0–10.0   mm
+slope         ST Slope                    Categorical  0, 1, 2    —
+ca            Number of Major Vessels     Ordinal      0, 1, 2, 3, 4  count
+thal          Thalassemia                 Categorical  0, 1, 2, 3 —
+
+CATEGORICAL VALUE MAPPINGS:
+
+sex:        0 = Female,  1 = Male
+cp:         0 = Typical Angina, 1 = Atypical Angina,
+            2 = Non-anginal Pain, 3 = Asymptomatic
+fbs:        0 = ≤ 120 mg/dl (Normal), 1 = > 120 mg/dl (High)
+restecg:    0 = Normal, 1 = ST-T Wave Abnormality,
+            2 = Left Ventricular Hypertrophy
+exang:      0 = No,  1 = Yes
+slope:      0 = Upsloping, 1 = Flat, 2 = Downsloping
+ca:         0 = No vessels, 1–4 = Number of blocked major vessels
+thal:       0 = Normal, 1 = Fixed Defect, 2 = Reversible Defect,
+            3 = Thalassemia
+
+
+================================================================================
+13. OUTPUT KEYWORDS DICTIONARY
+================================================================================
+
+KEYWORD/TERM             FULL MEANING
+───────────────────────  ───────────────────────────────────────────────────────
+Prediction               The model's binary output: Disease (1) or No Disease (0)
+Probability              Likelihood of heart disease as a percentage (0–100%)
+Confidence               How certain the model is (distance from 50% threshold)
+Risk Category            Clinical risk level: Low, Medium, or High
+Risk Gauge               Visual semi-circular meter showing risk probability
+Recommendation           Clinical guidance text based on the risk level
+SHAP Value               Shapley value = each feature's contribution to prediction
+LIME Weight              Local linear model coefficient for each feature
+Base Value               Average model prediction before any features are applied
+Feature Importance        How much a feature contributes to model decisions
+True Positive (TP)       Correctly predicted disease in a sick patient
+True Negative (TN)       Correctly predicted no disease in a healthy patient
+False Positive (FP)      Wrongly predicted disease in a healthy patient
+False Negative (FN)      Missed disease in a sick patient
+Confusion Matrix         2×2 grid of TP, TN, FP, FN counts
+ROC Curve                Plot of sensitivity vs (1 - specificity)
+AUC                      Area Under the ROC Curve (overall discrimination)
+Cross-Validation         Repeated train-test splitting for robust evaluation
+Fidelity Score           How well LIME's simple model matches the complex model
+Surrogate Model          A simpler model that approximates a complex one locally
+TreeExplainer            SHAP's exact algorithm for tree-based models
+Beeswarm Plot            SHAP summary showing every sample as a colored dot
+Waterfall Plot           Step-by-step breakdown of one prediction
+Force Plot               Push/pull visualization of feature contributions
+Dependence Plot          Feature value vs. SHAP value scatter plot
+
+
+================================================================================
+14. ABBREVIATIONS & SHORT FORMS
+================================================================================
+
+SHORT   FULL FORM                                   CONTEXT
+──────  ──────────────────────────────────────────  ────────────────────────────
+AI      Artificial Intelligence                     General
+ML      Machine Learning                            General
+XAI     Explainable Artificial Intelligence          Research field
+SHAP    SHapley Additive exPlanations               Interpretability method
+LIME    Local Interpretable Model-agnostic          Interpretability method
+        Explanations
+GBM     Gradient Boosting Machine                   ML algorithm
+GBC     Gradient Boosting Classifier                Same as GBM (sklearn name)
+ROC     Receiver Operating Characteristic           Performance metric
+AUC     Area Under the Curve                        Performance metric
+CV      Cross-Validation                            Evaluation technique
+TP      True Positive                               Confusion matrix
+TN      True Negative                               Confusion matrix
+FP      False Positive                              Confusion matrix
+FN      False Negative                              Confusion matrix
+ECG     Electrocardiogram                           Medical test
+LV      Left Ventricle (of the heart)               Medical term
+ST      ST segment (on ECG waveform)                Medical term
+BP      Blood Pressure                              Medical measurement
+FBS     Fasting Blood Sugar                         Medical test
+bpm     Beats Per Minute                            Heart rate unit
+mm Hg   Millimeters of Mercury                      Pressure unit
+mg/dl   Milligrams per Deciliter                    Concentration unit
+DPI     Dots Per Inch                               Image resolution
+PDF     Portable Document Format                    File format
+CSV     Comma-Separated Values                      File format
+PNG     Portable Network Graphics                   Image format
+UCI     University of California, Irvine            Dataset source
+OOP     Object-Oriented Programming                 Code architecture
+PEP 8   Python Enhancement Proposal #8              Python style guide
+R²      R-squared (coefficient of determination)    Statistical measure
+
+
+================================================================================
+15. MODEL DETAILS
+================================================================================
+
+MODEL: GradientBoostingClassifier (from scikit-learn)
+
+HYPERPARAMETER          VALUE       MEANING
+──────────────────────  ──────────  ────────────────────────────────────────────
+n_estimators            200         Maximum number of boosting stages (trees).
+                                    Actual used: 19 (stopped early).
+learning_rate           0.1         How much each new tree contributes.
+                                    Smaller = more conservative, needs more trees.
+max_depth               4           Maximum depth of each individual tree.
+                                    Deeper = more complex patterns learned.
+min_samples_split       5           Minimum samples needed to split a tree node.
+min_samples_leaf        3           Minimum samples in each leaf node.
+subsample               0.85        Fraction of data used per tree (stochastic).
+                                    <1.0 adds randomness, reduces overfitting.
+validation_fraction     0.15        15% of training data held for early stopping.
+n_iter_no_change        15          Stop if no improvement for 15 consecutive rounds.
+tol                     1e-4        Minimum improvement threshold (0.0001).
+random_state            42          Random seed for reproducibility.
+
+PREPROCESSING:
+  StandardScaler — Transforms each feature to have mean=0 and std=1.
+  This ensures features with large ranges (e.g., cholesterol 50–700)
+  don't dominate over features with small ranges (e.g., sex 0–1).
+
+TRAINING DATA:
+  241 patients (80% of 302)
+  Stratified split (preserves class balance in train and test)
+
+TEST DATA:
+  61 patients (20% of 302)
+  Used for all evaluation metrics
+
+
+================================================================================
+16. COLOR CODES USED IN THE APPLICATION
+================================================================================
+
+COLOR           HEX CODE    USAGE
+──────────────  ──────────  ────────────────────────────────────────────────────
+Primary Blue    #2563EB     Main brand color, buttons, links, active states
+Primary Hover   #1D4ED8     Button hover state (darker blue)
+Success Green   #16A34A     Low risk, positive outcomes, model loaded
+Danger Red      #DC2626     High risk, errors, validation failures
+Warning Amber   #F59E0B     Medium risk, caution indicators
+Info Cyan       #0EA5E9     Informational elements, secondary actions
+Purple          #7C3AED     SHAP-related elements, accent highlights
+Background      #F5F7FA     Page background (light gray)
+Card White      #FFFFFF     Content card backgrounds
+Sidebar Dark    #1E293B     Sidebar background (dark slate)
+Sidebar Hover   #334155     Sidebar button hover state
+Text Primary    #1F2937     Main text color (dark gray, nearly black)
+Text Secondary  #6B7280     Subtitle and description text
+Text Muted      #9CA3AF     Least important text (hints, captions)
+Border          #E5E7EB     Card borders, separators
+
+RISK GAUGE COLORS:
+  Green arc (#16A34A)  = Low risk zone (0–30%)
+  Amber arc (#F59E0B)  = Medium risk zone (30–70%)
+  Red arc (#DC2626)    = High risk zone (70–100%)
+
+
+================================================================================
+  END OF DOCUMENT
+================================================================================
+  File: application_output_guide.txt
+  Total pages explained: 8 (Dashboard, Prediction, Performance, SHAP, LIME,
+                             Reports, About, Settings)
+  Total input parameters: 13
+  Total output fields documented: 50+
+  Total abbreviations listed: 30+
+
+  Use this document for your viva, academic demonstration, and portfolio.
+================================================================================
